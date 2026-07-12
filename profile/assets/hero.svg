@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="440" viewBox="0 0 1680 440" role="img" aria-label="rackctl">
+  <defs>
+    <radialGradient id="g" cx="28%" cy="-10%" r="95%">
+      <stop offset="0%" stop-color="#17212f" />
+      <stop offset="62%" stop-color="#0c0f14" />
+    </radialGradient>
+  </defs>
+  <rect width="1680" height="440" fill="#0c0f14" />
+  <rect width="1680" height="440" fill="url(#g)" />
+  <g transform="translate(150,100)">
+    <g fill="#9bb0d0">
+      <rect x="0" y="0" width="236" height="52" rx="14" />
+      <rect x="0" y="94" width="236" height="52" rx="14" />
+      <rect x="0" y="188" width="236" height="52" rx="14" />
+    </g>
+    <circle cx="204" cy="120" r="12" fill="#c2d0e6" />
+  </g>
+  <text x="466" y="212" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="94" font-weight="600" fill="#e6e9f0">rackctl</text>
+  <text x="470" y="284" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="34" fill="#8b93a6">the day-0 installer for a nanohype platform</text>
+</svg>
