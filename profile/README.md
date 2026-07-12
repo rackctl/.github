@@ -37,6 +37,10 @@ curl -fsSL rackctl.com/install | sh
     <td><a href="https://rackctl.com">rackctl.com</a> — the landing page. Vite · React 19 · Tailwind v4 on the shuttering design system.</td>
   </tr>
   <tr>
+    <td valign="top"><a href="https://github.com/rackctl/docs"><b>docs</b></a></td>
+    <td><a href="https://docs.rackctl.ai">docs.rackctl.ai</a> — the documentation. Install, quickstart, the <code>rackctl.yaml</code> reference, the pipeline, and the footguns. Astro · Starlight on the rackctl theme.</td>
+  </tr>
+  <tr>
     <td valign="top"><a href="https://github.com/rackctl/infra"><b>infra</b></a></td>
     <td>The AWS deploy — OpenTofu + Terragrunt (S3 · CloudFront · ACM · Route53) serving rackctl.com and the installer.</td>
   </tr>
