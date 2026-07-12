@@ -7,7 +7,7 @@
   rackctl takes an empty AWS account to a reconciling
   <a href="https://github.com/nanohype">nanohype</a> platform — cloud, cluster, GitOps,
   controllers — then hands off to the portal for day-2 operations. It automates the manual
-  runbook and kills the footguns. It is <code>kubefirst</code> for an agent-native platform.
+  runbook and kills the footguns.
 </p>
 
 <p>
