@@ -30,6 +30,10 @@ curl -fsSL rackctl.com/install | sh
     <td valign="top"><a href="https://github.com/rackctl/rackctl"><b>rackctl</b></a></td>
     <td>The day-0 installer. <code>rackctl init</code> takes an operator from zero to a running, nanohype-shaped platform — an orchestrator over landing-zone (Terragrunt), eks-gitops (ArgoCD), and eks-agent-platform (operator), not a rewrite. Dry-run by default; a failed <code>--apply</code> tears down in reverse. Go · cobra · bubbletea.</td>
   </tr>
+  <tr>
+    <td valign="top"><a href="https://github.com/rackctl/homebrew-tap"><b>homebrew-tap</b></a></td>
+    <td>The Homebrew tap — <code>brew install rackctl/tap/rackctl</code>.</td>
+  </tr>
 
   <tr><td colspan="2"><sub><b>THE SITE &amp; INFRA</b></sub></td></tr>
   <tr>
@@ -38,7 +42,7 @@ curl -fsSL rackctl.com/install | sh
   </tr>
   <tr>
     <td valign="top"><a href="https://github.com/rackctl/docs"><b>docs</b></a></td>
-    <td><a href="https://docs.rackctl.ai">docs.rackctl.ai</a> — the documentation. Install, quickstart, the <code>rackctl.yaml</code> reference, the pipeline, and the footguns. Astro · Starlight on the rackctl theme.</td>
+    <td><a href="https://docs.rackctl.ai">docs.rackctl.ai</a> — the documentation. Install, quickstart, the <code>rackctl.yaml</code> reference, the pipeline, and the footguns. Astro · Starlight on the shuttering docs theme (<code>@shuttering/starlight</code>), slate ground + steel accent.</td>
   </tr>
   <tr>
     <td valign="top"><a href="https://github.com/rackctl/infra"><b>infra</b></a></td>
