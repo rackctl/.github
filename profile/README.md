@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <a href="https://rackctl.com"><img alt="rackctl.com" src="https://img.shields.io/badge/rackctl.com-9bb0d0?style=flat-square&logoColor=white"></a>
+  <a href="https://rackctl.sh"><img alt="rackctl.sh" src="https://img.shields.io/badge/rackctl.sh-9bb0d0?style=flat-square&logoColor=white"></a>
   <img alt="Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-8b93a6?style=flat-square">
   <img alt="AWS only" src="https://img.shields.io/badge/AWS-only-9bb0d0?style=flat-square&logo=amazonaws&logoColor=white">
   <img alt="OpenTofu" src="https://img.shields.io/badge/OpenTofu-9bb0d0?style=flat-square&logo=opentofu&logoColor=white">
@@ -21,7 +21,7 @@
 </div>
 
 ```sh
-curl -fsSL rackctl.com/install | sh
+curl -fsSL rackctl.sh/install | sh
 ```
 
 <table>
@@ -38,15 +38,15 @@ curl -fsSL rackctl.com/install | sh
   <tr><td colspan="2"><sub><b>THE SITE &amp; INFRA</b></sub></td></tr>
   <tr>
     <td valign="top"><a href="https://github.com/rackctl/web"><b>web</b></a></td>
-    <td><a href="https://rackctl.com">rackctl.com</a> — the landing page. Vite · React 19 · Tailwind v4 on the shuttering design system.</td>
+    <td><a href="https://rackctl.sh">rackctl.sh</a> — the landing page. Vite · React 19 · Tailwind v4 on the shuttering design system.</td>
   </tr>
   <tr>
     <td valign="top"><a href="https://github.com/rackctl/docs"><b>docs</b></a></td>
-    <td><a href="https://docs.rackctl.ai">docs.rackctl.ai</a> — the documentation. Install, quickstart, the <code>rackctl.yaml</code> reference, the pipeline, and the footguns. Astro · Starlight on the shuttering docs theme (<code>@shuttering/starlight</code>), slate ground + steel accent.</td>
+    <td><a href="https://docs.rackctl.sh">docs.rackctl.sh</a> — the documentation. Install, quickstart, the <code>rackctl.yaml</code> reference, the pipeline, and the footguns. Astro · Starlight on the shuttering docs theme (<code>@shuttering/starlight</code>), slate ground + steel accent.</td>
   </tr>
   <tr>
     <td valign="top"><a href="https://github.com/rackctl/infra"><b>infra</b></a></td>
-    <td>The AWS deploy — OpenTofu + Terragrunt (S3 · CloudFront · ACM · Route53) serving rackctl.com and the installer.</td>
+    <td>The AWS deploy — OpenTofu + Terragrunt (S3 · CloudFront · ACM · Route53) serving rackctl.sh and the installer.</td>
   </tr>
 </table>
 

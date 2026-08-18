@@ -5,8 +5,8 @@
 Please **do not** open a public issue for a security vulnerability.
 
 Report it privately via GitHub's [security advisory](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability)
-flow on the affected repository (Security → Report a vulnerability), or email the
-maintainer. Include the affected version, reproduction steps, and impact.
+flow on the affected repository (Security → Report a vulnerability). Include the
+affected version, reproduction steps, and impact.
 
 We aim to acknowledge within a few business days and to coordinate a fix and
 disclosure timeline with you.
