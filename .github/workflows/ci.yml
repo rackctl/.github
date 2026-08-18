@@ -30,9 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Deliberately no GH_TOKEN. The check resolves expected-404s against
+      # scripts/known-private.txt rather than the API, so it behaves identically
+      # here and on a maintainer's machine. See that file for the reasoning.
       - name: Verify advertised URLs
-        env:
-          # Lets the script tell a private repo apart from a deleted one. Without it
-          # both look like 404 and the check would either false-alarm or false-pass.
-          GH_TOKEN: ${{ github.token }}
         run: ./scripts/check-links.sh

@@ -87,15 +87,11 @@ while IFS= read -r url; do
       ;;
     404)
       # A private repo and a deleted one are indistinguishable to anonymous curl —
-      # both 404. Disambiguate with an authenticated call rather than guessing,
-      # because the two need opposite responses: a deleted repo is a broken link,
-      # a private one is a visibility decision for the maintainer.
-      slug="$(printf '%s' "$url" | sed -n 's|^https://github\.com/\([^/]*/[^/]*\)$|\1|p')"
-      if [ -n "$slug" ] && command -v gh >/dev/null 2>&1 \
-         && vis="$(gh api "repos/$slug" --jq .visibility 2>/dev/null)" && [ -n "$vis" ]; then
-        report "$code" "$url" "repo is $vis — public visitors see a 404"
-        # Not a build failure: the link is correct, the repo is simply not public.
-        # Surfaced loudly because this page's audience IS the public.
+      # both 404 — and they need opposite responses: a deleted repo is link rot,
+      # a private one is a visibility decision. Resolved against a checked-in list
+      # rather than a live API call; see scripts/known-private.txt for why.
+      if grep -qxF "$url" scripts/known-private.txt 2>/dev/null; then
+        report "$code" "$url" "private by design — public visitors see a 404"
       else
         report "404" "$url" "not found"
         fail "$url returned 404"

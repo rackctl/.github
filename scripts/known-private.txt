@@ -1,0 +1,21 @@
+# Links this page publishes that are known to 404 for the public, by design.
+#
+# Anything 404 and NOT listed here fails the build — a repo that was renamed or
+# deleted is real link rot. Anything listed here is reported but does not fail,
+# because it is a visibility decision rather than a broken link.
+#
+# This is a checked-in list rather than a live API lookup on purpose. The obvious
+# implementation — ask the GitHub API whether the repo is private — behaves
+# differently in CI than locally: a workflow's default GITHUB_TOKEN is scoped to
+# this repository only, so it cannot see sibling private repos and reports them as
+# "not found". That turns "I could not see it" into "it does not exist", which is
+# the exact ambiguity the check exists to resolve. A list in version control is
+# deterministic, needs no token, and shows intent in the diff when it changes.
+#
+# NOTE: every entry here is a row on the public org profile that gives visitors a
+# 404. Keeping one is a deliberate trade-off, not a clean state. Remove the entry
+# if the repo goes public, or drop the hyperlink from profile/README.md and keep
+# the descriptive row.
+
+https://github.com/rackctl/web
+https://github.com/rackctl/infra
