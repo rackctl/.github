@@ -1,0 +1,38 @@
+name: ci
+
+# The org profile is a published page: whatever lands on main renders immediately at
+# github.com/rackctl for everyone. It shipped a `curl … | sh` command pointing at a
+# parked domain, and a docs link whose host had no DNS record — neither of which any
+# review caught, because both look correct in a diff. This gate checks the URLs by
+# fetching them.
+#
+# Runs on PRs (no path filter — the whole repo is publishable content, and a filter
+# would make a skipped check unmergeable under a required-status rule) and on a
+# schedule, because these links rot without anyone touching the repo. The parked
+# domain answered HTTP 200 the entire time it was wrong.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly. External DNS and hosting change without a commit.
+    - cron: '17 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: links and install command
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Verify advertised URLs
+        env:
+          # Lets the script tell a private repo apart from a deleted one. Without it
+          # both look like 404 and the check would either false-alarm or false-pass.
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/check-links.sh
