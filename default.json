@@ -1,0 +1,112 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "Shared dependency posture for the rackctl org. Every repo extends this rather than config:recommended, so the age floor, the automerge stance and the security opt-out are stated once.",
+    "ORDERING HAZARD, read before adding a repo-local packageRule: a consumer's packageRules are appended AFTER the ones here, and later rules win. A local rule setting automerge:true would land after the patch/minor and major rules below and would win — and unlike these it would apply to CVE-driven updates too, since vulnerabilityAlerts cannot re-disable what a packageRule turned on. A local rule setting minimumReleaseAge would likewise override the first-party exemption at the end of this array.",
+    "AGE FLOOR: minimumReleaseAge holds routine updates for three days. Partly that is supply-chain posture — a compromised publish is typically caught and unpublished within hours, and nothing here is urgent enough to be worth being the first consumer of. Mostly it is so this preset stops proposing work the package managers will refuse: pnpm 11 defaults minimumReleaseAge to 1440 minutes and re-verifies every entry in the lockfile on every install, not just the ones being added, so a single too-young package anywhere in the tree fails `pnpm install --frozen-lockfile` in repos that never touched it. Renovate's floor has to stay at or above the package manager's, or Renovate writes lockfiles its own CI rejects.",
+    "The security path opts out on purpose: vulnerabilityAlerts sets minimumReleaseAge to null so a CVE fix is proposed the moment it exists. When the fix itself is hours old that can produce a PR the package manager declines to install until it ages out. Opening it immediately is the point — the PR is the signal a human needs — and it goes green on a re-run without any config change."
+  ],
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":dependencyDashboard",
+    "schedule:weekly",
+    "group:allNonMajor"
+  ],
+  "timezone": "America/Los_Angeles",
+  "minimumReleaseAge": "3 days",
+  "labels": ["deps"],
+  "prHourlyLimit": 4,
+  "prConcurrentLimit": 8,
+  "rebaseWhen": "conflicted",
+  "semanticCommitScope": "deps",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Routine updates are proposed, never landed unattended. A green check says the tree compiles, not that the change is wanted.",
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": false,
+      "automergeType": "pr"
+    },
+    {
+      "description": "Majors carry their own label so they are visible in a queue of routine bumps, and are never automerged.",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["deps", "major"]
+    },
+    {
+      "description": "The charm stack is one upgrade unit. bubbles depends on bubbletea depends on lipgloss, so a PR moving one of them alone cannot build. A major also relocates the module path — v1 lives under github.com/charmbracelet, v2 under charm.land — so an ungrouped major proposes a path that does not resolve. Grouping the two namespaces together keeps the set on one branch with one lockfile.",
+      "matchPackageNames": [
+        "/^charm\\.land\\//",
+        "/^github\\.com\\/charmbracelet\\//"
+      ],
+      "groupName": "charm"
+    },
+    {
+      "description": "The Go toolchain moves as one, and it moves the linter with it: a toolchain ahead of golangci-lint fails typecheck against the new stdlib rather than against any repo code.",
+      "matchManagers": ["gomod"],
+      "matchDepTypes": ["golang"],
+      "groupName": "go-toolchain",
+      "labels": ["deps", "toolchain"]
+    },
+    {
+      "description": "React and its types are a version set; splitting them produces a tree where the types describe a different runtime.",
+      "matchPackageNames": [
+        "/^react$/",
+        "/^react-dom$/",
+        "/^@types\\/react$/",
+        "/^@types\\/react-dom$/"
+      ],
+      "groupName": "react"
+    },
+    {
+      "description": "The Tailwind engine and its build plugins release together.",
+      "matchPackageNames": ["/^tailwindcss$/", "/^@tailwindcss\\//"],
+      "groupName": "tailwind"
+    },
+    {
+      "description": "Vitest and its ecosystem packages share a release train.",
+      "matchPackageNames": ["/^vitest$/", "/^@vitest\\//"],
+      "groupName": "vitest"
+    },
+    {
+      "description": "Biome is a single binary whose formatter and linter move in lockstep; a version skew between the check and the write mode reformats files the check then rejects.",
+      "matchPackageNames": ["/^@biomejs\\//"],
+      "groupName": "biome"
+    },
+    {
+      "description": "Actions are grouped and land on one weekly window so a workflow change is one review rather than several.",
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "schedule": ["before 6am on monday"]
+    },
+    {
+      "description": "Actions are pinned to a digest. A tag is mutable and a workflow is a supply chain.",
+      "matchManagers": ["github-actions"],
+      "pinDigests": true
+    },
+    {
+      "description": "The OpenTofu toolchain and its providers land on one weekly window; an infra tree is reviewed as a plan, not as a diff of pins.",
+      "matchManagers": ["terraform", "terragrunt"],
+      "groupName": "opentofu",
+      "schedule": ["before 6am on monday"]
+    },
+    {
+      "description": "First-party packages skip the release-age floor. The floor exists so no tree here is the first consumer of a compromised publish; @shuttering is published from a repo under the same ownership as its consumers, so there is no third party to be compromised by and the floor only delays a bump by three days. This has to match the package-manager side: a consuming repo carrying minimumReleaseAgeExclude for the same scope while Renovate kept the floor would simply stop being offered upgrades the package manager was willing to install.",
+      "matchPackageNames": ["/^@shuttering\\//"],
+      "minimumReleaseAge": null
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "description": "The whole security posture lives here, not in packageRules — a packageRule cannot express 'only vulnerability alerts'. minimumReleaseAge is null on purpose, stated rather than inherited: the top-level three-day floor must not delay a CVE fix, and writing it down keeps a future edit to that floor from silently acquiring a delay on the security path.",
+    "labels": ["security", "deps", "needs-review"],
+    "automerge": false,
+    "minimumReleaseAge": null,
+    "schedule": ["at any time"]
+  },
+  "osvVulnerabilityAlerts": true
+}
