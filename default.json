@@ -12,7 +12,8 @@
     ":semanticCommitTypeAll(chore)",
     ":dependencyDashboard",
     "schedule:weekly",
-    "group:allNonMajor"
+    "group:allNonMajor",
+    "github>shuttering/.github"
   ],
   "timezone": "America/Los_Angeles",
   "minimumReleaseAge": "3 days",
