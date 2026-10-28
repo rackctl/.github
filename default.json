@@ -91,6 +91,11 @@
       "pinDigests": true
     },
     {
+      "description": "Digest updates are aged at lookup, against the release date of the newest version matching the current value, and under the default internalChecksFilter of strict a digest younger than the floor is not proposed. The branch-level renovate/stability-days status has no release timestamp for a digest, so under the default timestamp-required behaviour it stays pending for as long as the branch exists, on a digest that already cleared the floor at lookup. timestamp-optional lets that status report what the lookup enforced. The cost: a digest whose current value resolves to no dated release is proposed without an age check. Lock file maintenance is not included: its status would turn green without any refreshed entry having been aged, so its transitive ages are checked before merge instead.",
+      "matchUpdateTypes": ["digest", "pinDigest"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
       "description": "The OpenTofu toolchain and its providers land on one weekly window; an infra tree is reviewed as a plan, not as a diff of pins.",
       "matchManagers": ["terraform", "terragrunt"],
       "groupName": "opentofu",
